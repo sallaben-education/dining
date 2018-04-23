@@ -17,11 +17,19 @@
     <div class="right">
         <?php
             // check if logged in or not, output correct text (does not work yet!)
-            echo '<div class="login"><a href="./login.php">Login</a></div>';
+            echo '<span class="signup"><a href="./signup.php">Sign Up</a></span>';
+            echo '<span class="login"><a href="./login.php">Login</a></span>';
         ?>
     </div>
 </header>
 <div class="content">
+    <h1>Search For Your School</h1>
+    <form action="" method="post">
+        <label for="query">University name:</label>
+        <input type="text" name="query" id="query">
+        <br><br>
+        <input type="submit" value="Search">
+    </form>
 </div>
 </body>
 </html>
