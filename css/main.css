@@ -1,0 +1,38 @@
+div {
+    font-family: Arial, Helvetica, sans-serif;
+}
+a:link, a:visited {
+    color: blue;
+    text-decoration: none;
+}
+.active a {
+    text-decoration: underline;
+}
+header {
+    height: 120px;
+    border-bottom: 2px solid black;
+}
+header .logo {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 120px;
+    padding-left: 15px;
+}
+header .logo a {
+    color: black;
+}
+header .login {
+    font-size: 24px;
+    line-height: 120px;
+    padding-right: 15px;
+}
+header .left {
+    text-align: left;
+    float: left;
+    width: 50%;
+}
+header .right {
+    text-align: right;
+    float: right;
+    width: 50%;
+}
