@@ -1,5 +1,6 @@
 <?php
   $diningHall = $_POST["query"];
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,5 +12,6 @@
     <title><?php echo $diningHall ?></title>
 </head>
 <body>
+
 </body>
 </html>

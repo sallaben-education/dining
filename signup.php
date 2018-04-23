@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>Project - Sign Up</title>
+    <title>Dining Disaster - Sign Up</title>
 </head>
 <body>
 <header>
@@ -35,8 +35,8 @@
         <label for="university">University:</label>
         <select name="university" id="university">
             <option value="0">University of Rochester</option>
-            <option value="1">Placeholder University</option>
-            <option value="2">Placeholder University</option>
+            <!--<option value="1">Placeholder University</option>
+            <option value="2">Placeholder University</option>-->
         </select>
         <br>
         <label for="email">University Email:</label>
