@@ -11,7 +11,7 @@
 <header>
     <div class="left">
         <div class="logo">
-            <a href="./index.php">Project</a>
+            <a href="./index.php">Dining Disaster</a>
         </div>
     </div>
     <div class="right">
@@ -23,9 +23,9 @@
     </div>
 </header>
 <div class="content">
-    <h1>Search For Your School</h1>
+    <h1>Search for a Dining Hall</h1>
     <form action="" method="post">
-        <label for="query">University name:</label>
+        <label for="query">Dining Hall Name:</label>
         <input type="text" name="query" id="query">
         <br><br>
         <input type="submit" value="Search">
