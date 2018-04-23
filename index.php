@@ -24,7 +24,7 @@
 </header>
 <div class="content">
     <h1>Search for a Dining Hall</h1>
-    <form action="" method="post">
+    <form action="./dininghall.php" method="post">
         <label for="query">Dining Hall Name:</label>
         <input type="text" name="query" id="query">
         <br><br>
