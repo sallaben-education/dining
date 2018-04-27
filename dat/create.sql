@@ -10,7 +10,7 @@ drop table if exists DiningHall;
 
 
 create table Users (
- UserID INT,
+ UserID INT AUTO_INCREMENT,
  Email VARCHAR(200),
  SignupDate DATETIME NOT NULL,
  Password VARCHAR(255) NOT NULL,
@@ -50,7 +50,7 @@ create table Hours(
  PRIMARY KEY(DiningID, Day, TimeOfDay),
  FOREIGN KEY(DiningID) REFERENCES DiningHall(DiningID) ON DELETE CASCADE);
 create table Ratings(
- RatingID INT,
+ RatingID INT AUTO_INCREMENT,
  Comment VARCHAR(255),
  FoodRating TINYINT,
  StaffRating TINYINT,

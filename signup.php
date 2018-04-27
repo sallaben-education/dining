@@ -28,15 +28,15 @@
 </header>
 <div class="content">
     <h1>Sign Up</h1>
-    <form action="" method="post">
-        <label for="username">Name:</label>
+    <form action="createaccount.php" method="post">
+        <label for="name">Name:</label>
         <input type="text" name="name" id="name">
         <br>
         <label for="university">University:</label>
         <select name="university" id="university">
             <option value="0">University of Rochester</option>
-            <option value="1">Placeholder University</option>
-            <option value="2">Placeholder University</option>
+            <option value="1">Harvard University </option>
+            <option value="2">Massachusetts Institute of Technology</option>
         </select>
         <br>
         <label for="email">University Email:</label>
@@ -45,8 +45,8 @@
         <label for="password">Password:</label>
         <input type="password" name="password" id="password">
         <br>
-        <label for="password">Repeat Password:</label>
-        <input type="password" name="password" id="password">
+        <label for="repeat">Repeat Password:</label>
+        <input type="password" name="repeat" id="repeat">
         <br><br>
         <input type="submit" value="Sign Up">
     </form>
