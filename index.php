@@ -1,3 +1,4 @@
+<?php require_once('./script/connect.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>Project</title>
+    <title>Dining Disaster</title>
 </head>
 <body>
 <header>
@@ -30,6 +31,75 @@
         <br><br>
         <input type="submit" value="Search">
     </form>
+    <h1>Leaderboards</h1>
+    <h3>Best Overall</h3>
+    <table class="ratings">
+    <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
+<?php
+$sql = <<<SQL
+    SELECT *
+    FROM DiningHall AS D, Ratings AS R
+    WHERE D.DiningID = R.DiningID
+    ORDER BY TotalRating
+    LIMIT 5;
+SQL;
+
+if(!$result = $db->query($sql)) {
+    die("There was an error running the query [" . $db->error . "]");
+}
+$i = 1;
+while($row = $result->fetch_assoc()) {
+    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['TotalRating'] . "</td></tr>";
+    $i++;
+}
+?>
+    </table>
+    <h3>Best Food</h3>
+    <table class="ratings">
+    <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
+<?php
+$sql = <<<SQL
+    SELECT *
+    FROM DiningHall AS D, Ratings AS R
+    WHERE D.DiningID = R.DiningID
+    ORDER BY FoodRating
+    LIMIT 5;
+SQL;
+
+if(!$result = $db->query($sql)) {
+    die("There was an error running the query [" . $db->error . "]");
+}
+
+$i = 1;
+while($row = $result->fetch_assoc()) {
+    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    $i++;
+}
+?>
+    </table>
+    <h3>Fastest Food</h3>
+    <table class="ratings">
+    <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
+<?php
+$sql = <<<SQL
+    SELECT *
+    FROM DiningHall AS D, Ratings AS R
+    WHERE D.DiningID = R.DiningID
+    ORDER BY SpeedRating
+    LIMIT 5;
+SQL;
+
+if(!$result = $db->query($sql)) {
+    die("There was an error running the query [" . $db->error . "]");
+}
+
+$i = 1;
+while($row = $result->fetch_assoc()) {
+    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    $i++;
+}
+?>
+    </table>
 </div>
 </body>
 </html>

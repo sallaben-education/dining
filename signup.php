@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>Project - Sign Up</title>
+    <title>Dining Disaster - Sign Up</title>
 </head>
 <body>
 <header>
     <div class="left">
         <div class="logo">
-            <a href="./index.php">Project</a>
+            <a href="./index.php">Dining Disaster</a>
         </div>
     </div>
     <div class="right">
@@ -28,7 +28,7 @@
 </header>
 <div class="content">
     <h1>Sign Up</h1>
-    <form action="createaccount.php" method="post">
+    <form action="./script/signup.php" method="post">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name">
         <br>

@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>Project - Login</title>
+    <title>Dining Disaster - Login</title>
 </head>
 <body>
 <header>
     <div class="left">
         <div class="logo">
-            <a href="./index.php">Project</a>
+            <a href="./index.php">Dining Disaster</a>
         </div>
     </div>
     <div class="right">
@@ -27,10 +27,16 @@
     </div>
 </header>
 <div class="content">
+<?php
+if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
+    $msg = strip_tags(urldecode($_GET['msg']));
+    echo "<div class='message'>{$msg}</div>";
+}
+?>
     <h1>Log In</h1>
-    <form action="" method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
+    <form action="./script/login.php" method="post">
+        <label for="username">Email address:</label>
+        <input type="text" name="email" id="email">
         <br>
         <label for="password">Password:</label>
         <input type="password" name="password" id="password">

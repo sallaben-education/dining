@@ -1,6 +1,6 @@
 <?php
 
-require_once("./db/connect.php");
+require_once("./connect.php");
 
 if(sizeof($_POST) != 5) {
     die("Not a valid form submission!");
@@ -27,7 +27,7 @@ SQL;
 if(!$result = $db->query($sql)) {
     die("There was an error running the query [" . $db->error . "]");
 } else {
-    echo "Account successfully created for {$name}!";
+    header("Location: ../login.php?msg=" . urlencode("Account successfully created for {$name}!"));
 }
 
 ?>

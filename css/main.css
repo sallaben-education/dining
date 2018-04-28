@@ -44,3 +44,21 @@ header .right {
     float: right;
     width: 50%;
 }
+.ratings {
+    border: 1px solid black;
+    padding: 5px;
+}
+.ratings td {
+    padding: 5px;
+    border-top: 1px solid black;
+    text-align: center;
+}
+.message {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    background-color: #44AA88;
+    border-radius: 10px;
+    width: 50%;
+}
