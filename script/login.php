@@ -25,9 +25,16 @@ if(!$result = $db->query($sql)) {
 
 if($result->num_rows == 0) {
     header("Location: ../login.php?msg=" . urlencode("The username and password you supplied did not match any account."));
-} else {
-    $_SESSION['valid'] = true;
-    header("Location: ../index.php?msg=" . urlencode("Successfully logged in!"));
 }
+
+$row = $result->fetch_assoc();
+$_SESSION['UserID'] = $row['UserID'];
+$_SESSION['Email'] = $row['Email'];
+$_SESSION['SignupDate'] = $row['SignupDate'];
+$_SESSION['Name'] = $row['Name'];
+
+$_SESSION['valid'] = true;
+
+header("Location: ../index.php?msg=" . urlencode("Successfully logged in!"));
 
 ?>
