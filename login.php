@@ -1,5 +1,8 @@
 <?php
-    // check if logged in or not. if logged in, send them back to the homepage! (does not work yet!)
+session_start();
+if(isset($_SESSION['valid'])) {
+    header("Location: ./index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +33,7 @@
 <?php
 if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
     $msg = strip_tags(urldecode($_GET['msg']));
-    echo "<div class='message'>{$msg}</div>";
+    echo "<div class='error'>{$msg}</div>";
 }
 ?>
     <h1>Log In</h1>

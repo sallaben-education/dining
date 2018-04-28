@@ -2,6 +2,8 @@
 
 require_once("./connect.php");
 
+session_start();
+
 if(sizeof($_POST) != 5) {
     die("Not a valid form submission!");
 }
@@ -17,6 +19,7 @@ if($pwd != $repeat) {
 }
 
 $encrypted = md5($pwd);
+$time = time();
 
 $sql = <<<SQL
     INSERT INTO Users (Email, SignupDate, Password, Name) 
@@ -25,8 +28,10 @@ SQL;
 
 if(!$result = $db->query($sql)) {
     die("There was an error running the query [" . $db->error . "]");
-} else {
-    header("Location: ../login.php?msg=" . urlencode("Account successfully created for {$name}!"));
 }
+
+$_SESSION['valid'] = true;
+
+header("Location: ../index.php?msg=" . urlencode("Account successfully created for {$name}!"));
 
 ?>

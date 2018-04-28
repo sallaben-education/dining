@@ -1,4 +1,7 @@
-<?php require_once('./script/connect.php'); ?>
+<?php 
+require_once('./script/connect.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,13 +20,22 @@
     </div>
     <div class="right">
         <?php
-            // check if logged in or not, output correct text (does not work yet!)
+        if(isset($_SESSION['valid'])) {
+            echo '<span class="logout"><a href="./script/logout.php">Log Out</a></span>';
+        } else {
             echo '<span class="signup"><a href="./signup.php">Sign Up</a></span>';
-            echo '<span class="login"><a href="./login.php">Login</a></span>';
+            echo '<span class="login"><a href="./login.php">Log In</a></span>';
+        }
         ?>
     </div>
 </header>
 <div class="content">
+<?php
+if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
+    $msg = strip_tags(urldecode($_GET['msg']));
+    echo "<div class='message'>{$msg}</div>";
+}
+?>
     <h1>Search for a Dining Hall</h1>
     <form action="./dininghall.php" method="post">
         <label for="query">Dining Hall Name:</label>

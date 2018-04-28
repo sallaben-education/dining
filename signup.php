@@ -1,5 +1,8 @@
 <?php
-    // check if logged in or not. if logged in, send them back to the homepage! (does not work yet!)
+session_start();
+if(isset($_SESSION['valid'])) {
+    header("Location: ./index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +25,7 @@
             <a href="./signup.php">Sign Up</a>
         </span>
         <span class="login">
-            <a href="./login.php">Login</a>
+            <a href="./login.php">Log In</a>
         </span>
     </div>
 </header>
