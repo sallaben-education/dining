@@ -17,7 +17,6 @@ if($pwd != $repeat) {
 }
 
 $encrypted = md5($pwd);
-$time = time();
 
 $sql = <<<SQL
     INSERT INTO Users (Email, SignupDate, Password, Name) 
