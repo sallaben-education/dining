@@ -67,6 +67,7 @@ header .right {
 }
 .left, .right {
     width: 50%;
+    padding-bottom: 20px;
 }
 .left {
     float: left;

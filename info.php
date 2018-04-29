@@ -90,10 +90,10 @@ SQL;
   $row = $result->fetch_assoc();
   echo "<h1>" . $row['Name'] . "</h1>School: " . $row['SchoolName'] . "<br>Price: " . $row['Price'];
 
-$_SESSION['diningid'] = $row['Name'];
 if (isset($_SESSION['valid'])) {
-  echo "<br><a href='./createRating.php'>Create Rating</a>";
+  echo "<br><br><a href='./rate.php?id={$diningID}'>Create Rating</a><br><br>";
 }
+
 $sql = <<<SQL
     SELECT *
     FROM Food, FoodType
