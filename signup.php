@@ -38,8 +38,8 @@ if(isset($_SESSION['valid'])) {
         <label for="university">University:</label>
         <select name="university" id="university">
             <option value="0">University of Rochester</option>
-            <option value="1">Harvard University </option>
-            <option value="2">Massachusetts Institute of Technology</option>
+            <!--<option value="1">Harvard University </option>
+            <option value="2">Massachusetts Institute of Technology</option>-->
         </select>
         <br>
         <label for="email">University Email:</label>
@@ -50,6 +50,14 @@ if(isset($_SESSION['valid'])) {
         <br>
         <label for="repeat">Repeat Password:</label>
         <input type="password" name="repeat" id="repeat">
+        <!--<br><br>-->
+        <div>
+        	<label for="student">Student?</label>
+        	<input type="radio" name="usertype" id="student" value="student">
+        	<br>
+        	<label for="faculty">Faculty?</label>
+        	<input type="radio" name="usertype" id="faculty" value="faculty">
+        </div>
         <br><br>
         <input type="submit" value="Sign Up">
     </form>
