@@ -75,3 +75,9 @@ header .right {
 .right {
     float: right;
 }
+.leftcell {
+    vertical-align: top;
+}
+.averages {
+    margin-left: 25px;
+}

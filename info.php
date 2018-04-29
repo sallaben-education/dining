@@ -78,6 +78,7 @@ echo "</div><div class='right'>";
 // *** *** *** *** *** *** ***
 // Specific dining hall info
 // *** *** *** *** *** *** ***
+echo '<table><tr><td class="leftcell">';
 if(isset($_GET['id'])) {
 $sql = <<<SQL
     SELECT *
@@ -88,23 +89,71 @@ SQL;
       die("There was an error running the query [" . $db->error . "]");
   }
   $row = $result->fetch_assoc();
-  echo "<h1>" . $row['Name'] . "</h1>School: " . $row['SchoolName'] . "<br>Price: " . $row['Price'];
+  echo "<h1>" . $row['Name'] . "</h1>School: <strong>" . $row['SchoolName'] . "</strong><br><br>";
+  echo "Average price: <strong>" . $row['Price'] . "</strong><br><br>";
 
 $sql = <<<SQL
-    SELECT AVG(FoodRating) as Food, AVG(StaffRating) as Staff, AVG(PriceRating) as Price, AVG(CleanRating) as Clean, AVG(SpeedRating) as Speed, AVG(TotalRating) as Total FROM Ratings GROUP BY DiningID HAVING DiningID='{$diningID}';
+    SELECT COUNT(*) as NumRatings
+    FROM Ratings
+    WHERE DiningID = "{$diningID}";
+SQL;
+if(!$result = $db->query($sql)) {
+  die("There was an error running the query [" . $db->error . "]");
+}
+$row = $result->fetch_assoc();
+  echo "Number of ratings: <strong>" . $row['NumRatings'] . "</strong>";
+
+  if (isset($_SESSION['valid'])) {
+    echo "<h3><a href='./rate.php?id={$diningID}'>Create Rating</a></h3>";
+  }
+  echo "<h4>Recent Ratings:</h4>";
+echo '</td><td>';
+$sql = <<<SQL
+    SELECT AVG(FoodRating) as Food, AVG(StaffRating) as Staff, AVG(PriceRating) as Price, AVG(CleanRating) as Clean, AVG(SpeedRating) as Speed, AVG(TotalRating) as Total
+    FROM Ratings 
+    GROUP BY DiningID 
+    HAVING DiningID='{$diningID}';
 SQL;
   if(!$result = $db->query($sql)) {
       die("There was an error running the query [" . $db->error . "]");
   }
   $row = $result->fetch_assoc();
-  echo '<br><h4>Average Ratings in Categories:</h4>';
-  echo 'Food Rating: ' . $row['Food'] . '<br>Staff Rating: ' . $row['Staff'] . '<br>Price Rating: ' . $row['Price'];
-  echo '<br>Clean Rating: ' . $row['Clean'] . '<br>Speed Rating: ' . $row['Speed'] . '<br>Total Rating: ' . $row['Total'];
+  echo '<br>';
+  echo '<table class="spacedtable averages">';
+  echo '<tr><th>Category</th><th>Rating</th></tr>';
+  echo '<tr><td>Food Quality:</td><td>' . $row['Food'] . '</td></tr>';
+  echo '<tr><td>Staff:</td><td>' . $row['Staff'] . '</td></tr>';
+  echo '<tr><td>Price/Value:</td><td>' . $row['Price'] . '</td></tr>';
+  echo '<tr><td>Cleanliness:</td><td>' . $row['Clean'] . '</td></tr>';
+  echo '<tr><td>Speed:</td><td>' . $row['Speed'] . '</td></tr>';
+  echo '<tr><td>Total Rating:</td><td>' . $row['Total'] . '</td></tr>';
+  echo '</table>';
+  echo '</td></tr></table>';
 
-
-
-if (isset($_SESSION['valid'])) {
-  echo "<br><br><a href='./rate.php?id={$diningID}'>Create Rating</a><br><br>";
+$sql = <<<SQL
+    SELECT *
+    FROM Ratings
+    WHERE DiningID = "{$diningID}" ORDER BY Time LIMIT 20;
+SQL;
+  if(!$result = $db->query($sql)) {
+      die("There was an error running the query [" . $db->error . "]");
+  }
+  $i = 1;
+if($result->num_rows > 0) {
+  echo "<table class='spacedtable'><tr><th>#</th><th>Total Rating</th><th>Comment</th><th>User</th></tr>";
+}
+while($row = $result->fetch_assoc()) {
+  if ($row['Anonymous']) {
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>Anonymous</td></tr>";
+  } else {
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>" . $row['UserID'] . "</td></tr>";
+  }
+  $i++;
+}
+if($i == 1) {
+  echo "No ratings have been submitted for this dining hall!<br><br>";
+} else {
+  echo "</table><br>";
 }
 
 $sql = <<<SQL
@@ -123,38 +172,9 @@ while($row = $result->fetch_assoc()) {
   echo "<tr><td>{$i}</td><td>" . $row['FoodName'] . "</td><td>" . $row['Type'] . "</td><td>" . $row['Price'] . "</td></tr>";
   $i++;
 }
-if($i == 1) {
-  echo "<br>No matching results!";
-} else {
+if($i != 1) {
   echo "</table>";
 }
-echo "<h4>20 Most Recent Ratings:</h4>";
-$sql = <<<SQL
-    SELECT *
-    FROM Ratings
-    WHERE DiningID = "{$diningID}" ORDER BY Time LIMIT 20;
-SQL;
-  if(!$result = $db->query($sql)) {
-      die("There was an error running the query [" . $db->error . "]");
-  }
-  $i = 1;
-if($result->num_rows > 0) {
-  echo "<table class='spacedtable'><tr><th>#</th><th>Total Rating</th><th>Comment</th><th>User</th></tr>";
-}
-while($row = $result->fetch_assoc()) {
-  if ($row['Anonymous']) {
-    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td>" . $row['Comment'] . "</td><td>Anonymous</td></tr>";
-  } else {
-    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td>" . $row['Comment'] . "</td><td>" . $row['UserID'] . "</td></tr>";
-  }
-  $i++;
-}
-if($i == 1) {
-  echo "<br>No Ratings Yet!";
-} else {
-  echo "</table>";
-}
-
 }
 ?>
 </div>
