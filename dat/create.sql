@@ -11,7 +11,7 @@ drop table if exists DiningHall;
 
 create table Users (
  UserID INT AUTO_INCREMENT,
- Email VARCHAR(200),
+ Email VARCHAR(200) NOT NULL UNIQUE,
  SignupDate DATETIME NOT NULL,
  Password VARCHAR(255) NOT NULL,
  Name VARCHAR(255) NOT NULL,
@@ -26,8 +26,8 @@ create table DiningHall(
 );
 create table Student (
  UserID INT,
- Declining DECIMAL(18,2),
- Swipes INT,
+ Declining DECIMAL(18,2) DEFAULT 0,
+ Swipes INT DEFAULT 0,
  PRIMARY KEY(UserID),
  FOREIGN KEY(UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );

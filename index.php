@@ -21,7 +21,7 @@ session_start();
     <div class="right">
         <?php
         if(isset($_SESSION['valid'])) {
-            echo $_SESSION['Name'] . ' &mdash; <span class="logout"><a href="./script/logout.php">Log Out</a></span>';
+            echo '<a href="./user.php">' . $_SESSION['Name'] . '</a> &mdash; <span class="logout"><a href="./script/logout.php">Log Out</a></span>';
         } else {
             echo '<span class="signup"><a href="./signup.php">Sign Up</a></span>';
             echo '<span class="login"><a href="./login.php">Log In</a></span>';
