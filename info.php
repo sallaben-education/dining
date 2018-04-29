@@ -12,7 +12,7 @@ $diningID = strip_tags(urldecode($_GET['id']));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>RateMyDining - <?php echo $query ?></title>
+    <title>RateMyDining <?php echo $query ?></title>
 </head>
 <body>
 <header>
@@ -106,7 +106,38 @@ SQL;
 if (isset($_SESSION['valid'])) {
   echo "<br><br><a href='./rate.php?id={$diningID}'>Create Rating</a><br><br>";
 }
+echo '<h4>Hours: </h4>';
+$sql = <<<SQL
+    SELECT *
+    FROM Hours
+    WHERE DiningID = "{$diningID}";
+SQL;
+  if(!$result = $db->query($sql)) {
+      die("There was an error running the query [" . $db->error . "]");
+  }
+  $i = 1;
+if($result->num_rows > 0) {
+  echo "<table class='spacedtable'><tr><th>Day</th><th>Time of Day</th><th>Start Time</th><th>End Time</th></tr>";
+}
+while($row = $result->fetch_assoc()) {
+  $timeday = "Morning";
+  if ($row['TimeOfDay'] == 0) {
+    $timeday = "Morning";
+  } else if ($row['TimeOfDay'] == 1) {
+    $timeday = "Afternoon";
+  } else if ($row['TimeOfDay'] == 2) {
+    $timeday = "Night";
+  }
+  echo "<tr><td>" . $row['Day'] . "</td><td>" . $timeday . "</td><td>" . $row['Stime'] . "</td><td> " . $row['Etime'] . "</td></tr>";
+  $i++;
+}
+if($i == 1) {
+  echo "<br>No matching results!";
+} else {
+  echo "</table>";
+}
 
+echo '<h4>Food: </h4>';
 $sql = <<<SQL
     SELECT *
     FROM Food, FoodType
