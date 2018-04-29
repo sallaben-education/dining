@@ -45,7 +45,7 @@ $_SESSION['UserID'] = $row['UserID'];
 $_SESSION['SignupDate'] = $row['SignupDate'];
 $_SESSION['Email'] = $email;
 $_SESSION['Name'] = $name;
-
+$_SESSION['usertype'] = $userType;
 $_SESSION['valid'] = true;
 
 $myUserId = $row['UserID'];
@@ -59,6 +59,8 @@ SQL;
 	if(!$result = $db->query($sql)) {
     	die("There was an error running the query [" . $db->error . "]");
 	}
+	$_SESSION['swipes'] = '0';
+	$_SESSION['declining'] = '0';
 } else {
 	$sql = <<<SQL
 		INSERT INTO Faculty (UserID) 
