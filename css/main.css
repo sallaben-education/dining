@@ -58,6 +58,12 @@ header .right {
     padding: 5px;
     text-align: left;
 }
+.lcontainer {
+    width: 100%;
+}
+.leaderboard {
+    margin: 10px;
+}
 .message, .error {
     color: white;
     font-size: 16px;

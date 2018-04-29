@@ -44,15 +44,16 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
         <input type="submit" value="Search">
     </form>
     <h1>Leaderboards</h1>
-    <h3>Best Overall</h3>
-    <table class="spacedtable">
+    <table class="lcontainer"><tr>
+    <td><h3>Best Overall</h3>
+    <table class="spacedtable leaderboard">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
-    SELECT *
+    SELECT D.DiningID, D.Name, AVG(TotalRating) as Avg
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
-    ORDER BY TotalRating
+    GROUP BY D.DiningID
     LIMIT 5;
 SQL;
 
@@ -61,20 +62,21 @@ if(!$result = $db->query($sql)) {
 }
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</a></td><td>" . $row['TotalRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</a></td><td>" . $row['Avg'] . "</td></tr>";
     $i++;
 }
 ?>
     </table>
+    </td><td>
     <h3>Best Food</h3>
-    <table class="spacedtable">
+    <table class="spacedtable leaderboard">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
-    SELECT *
+    SELECT D.DiningID, D.Name, AVG(FoodRating) as Avg
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
-    ORDER BY FoodRating
+    GROUP BY D.DiningID
     LIMIT 5;
 SQL;
 
@@ -84,20 +86,21 @@ if(!$result = $db->query($sql)) {
 
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['Avg'] . "</td></tr>";
     $i++;
 }
 ?>
     </table>
+    </td><td>
     <h3>Fastest Food</h3>
-    <table class="spacedtable">
+    <table class="spacedtable leaderboard">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
-    SELECT *
+    SELECT D.DiningID, D.Name, AVG(SpeedRating) as Avg
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
-    ORDER BY SpeedRating
+    GROUP BY D.DiningID
     LIMIT 5;
 SQL;
 
@@ -107,11 +110,12 @@ if(!$result = $db->query($sql)) {
 
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['Avg'] . "</td></tr>";
     $i++;
 }
 ?>
     </table>
+</td></tr></table>
 </div>
 </body>
 </html>
