@@ -185,7 +185,6 @@ if($i == 1) {
 } else {
   echo "</table>";
 }
-
 }
 ?>
 </div>
