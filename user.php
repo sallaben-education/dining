@@ -18,7 +18,7 @@ if(!isset($_SESSION['valid'])) {
 <header>
     <div class="left">
         <div class="logo">
-            <a href="./index.php">Dining Disaster</a>
+            <a href="./index.php">RateMyDining</a>
         </div>
     </div>
     <div class="right">

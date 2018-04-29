@@ -9,13 +9,13 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>Dining Disaster</title>
+    <title>RateMyDining</title>
 </head>
 <body>
 <header>
     <div class="left">
         <div class="logo">
-            <a href="./index.php">Dining Disaster</a>
+            <a href="./index.php">RateMyDining</a>
         </div>
     </div>
     <div class="right">
