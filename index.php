@@ -37,7 +37,7 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
 }
 ?>
     <h1>Search for a Dining Hall</h1>
-    <form action="./dininghall.php" method="post">
+    <form action="./info.php" method="get">
         <label for="query">Dining Hall Name:</label>
         <input type="text" name="query" id="query">
         <br><br>
@@ -45,7 +45,7 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
     </form>
     <h1>Leaderboards</h1>
     <h3>Best Overall</h3>
-    <table class="ratings">
+    <table class="spacedtable">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
@@ -61,13 +61,13 @@ if(!$result = $db->query($sql)) {
 }
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['TotalRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</a></td><td>" . $row['TotalRating'] . "</td></tr>";
     $i++;
 }
 ?>
     </table>
     <h3>Best Food</h3>
-    <table class="ratings">
+    <table class="spacedtable">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
@@ -84,13 +84,13 @@ if(!$result = $db->query($sql)) {
 
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
     $i++;
 }
 ?>
     </table>
     <h3>Fastest Food</h3>
-    <table class="ratings">
+    <table class="spacedtable">
     <tr><th>#</th><th>Name</th><th>Average Rating</th></tr>
 <?php
 $sql = <<<SQL
@@ -107,7 +107,7 @@ if(!$result = $db->query($sql)) {
 
 $i = 1;
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>{$i}</td><td>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td><a href='./info.php?id=" . $row['DiningID'] . "'>" . $row['Name'] . "</td><td>" . $row['FoodRating'] . "</td></tr>";
     $i++;
 }
 ?>

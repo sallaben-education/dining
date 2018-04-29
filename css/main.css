@@ -44,11 +44,11 @@ header .right {
     float: right;
     width: 50%;
 }
-.ratings {
+.spacedtable {
     border: 1px solid black;
     padding: 5px;
 }
-.ratings td {
+.spacedtable td {
     padding: 5px;
     border-top: 1px solid black;
     text-align: center;
@@ -64,4 +64,13 @@ header .right {
 }
 .error {
     background-color: #AA4444 !important;
+}
+.left, .right {
+    width: 50%;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
 }
