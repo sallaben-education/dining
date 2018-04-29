@@ -12,7 +12,7 @@ $diningID = strip_tags(urldecode($_GET['id']));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <title>DiningDisaster - <? echo $query ?></title>
+    <title>DiningDisaster - <?php echo $query ?></title>
 </head>
 <body>
 <header>
