@@ -5,7 +5,7 @@ require_once("./connect.php");
 session_start();
 
 if(sizeof($_POST) != 5) {
-    die("Not a valid form submission!");
+    die("Not a valid form submission, Please fill in all areas of the form!");
 }
 
 $name = strtoupper($_POST['name']);
@@ -14,7 +14,7 @@ $pwd = $_POST['password'];
 $repeat = $_POST['repeat'];
 
 if($pwd != $repeat) {
-    die("Password verification failed!");
+    die("Password verification failed, make sure to enter the same password twice!");
 }
 
 $encrypted = md5($pwd);
