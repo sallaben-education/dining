@@ -50,7 +50,7 @@ SQL;
     <form action="./script/rate.php" method="post">
         <input type="hidden" name="diningID" value="<?php echo $diningID ?>" />
         <table class="ratingtable">
-        <tr><th></th><th>1&rarr;2&rarr;3&rarr;4&rarr;5</th></tr>
+        <tr><th></th><th>1&larr;2&larr;3&rarr;4&rarr;5</th></tr>
         <tr><td><label for="food">Food Quality:</label></td><td>
         <input type="radio" name="food" value="1">
         <input type="radio" name="food" value="2">

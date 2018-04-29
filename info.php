@@ -90,7 +90,34 @@ SQL;
   }
   $row = $result->fetch_assoc();
   echo "<h1>" . $row['Name'] . "</h1>School: <strong>" . $row['SchoolName'] . "</strong><br><br>";
-  echo "Average price: <strong>" . $row['Price'] . "</strong><br><br>";
+
+  $sql = <<<SQL
+  SELECT *
+  FROM Hours
+  WHERE DiningID = "{$diningID}";
+SQL;
+if(!$result = $db->query($sql)) {
+    die("There was an error running the query [" . $db->error . "]");
+}
+$i = 1;
+if($result->num_rows > 0) {
+echo "<table class='spacedtable'><tr><th>Day</th><th>Time of Day</th><th>Start Time</th><th>End Time</th></tr>";
+}
+while($row = $result->fetch_assoc()) {
+$timeday = "Morning";
+if ($row['TimeOfDay'] == 0) {
+  $timeday = "Morning";
+} else if ($row['TimeOfDay'] == 1) {
+  $timeday = "Afternoon";
+} else if ($row['TimeOfDay'] == 2) {
+  $timeday = "Night";
+}
+echo "<tr><td>" . $row['Day'] . "</td><td>" . $timeday . "</td><td>" . $row['Stime'] . "</td><td> " . $row['Etime'] . "</td></tr>";
+$i++;
+}
+if($i != 1) {
+echo "</table>";
+}
 
 $sql = <<<SQL
     SELECT COUNT(*) as NumRatings
@@ -101,12 +128,10 @@ if(!$result = $db->query($sql)) {
   die("There was an error running the query [" . $db->error . "]");
 }
 $row = $result->fetch_assoc();
-  echo "Number of ratings: <strong>" . $row['NumRatings'] . "</strong>";
-
   if (isset($_SESSION['valid'])) {
-    echo "<h3><a href='./rate.php?id={$diningID}'>Leave Rating</a></h3>";
+    echo "<h3><a href='./rate.php?id={$diningID}'>[Leave Rating]</a></h3>";
   }
-  echo "<h4>Recent Ratings:</h4>";
+  echo "<h4>Recent Ratings (" . $row['NumRatings'] . " total):</h4>";
 echo '</td><td>';
 $sql = <<<SQL
     SELECT AVG(FoodRating) as Food, AVG(StaffRating) as Staff, AVG(PriceRating) as Price, AVG(CleanRating) as Clean, AVG(SpeedRating) as Speed, AVG(TotalRating) as Total
@@ -118,47 +143,6 @@ SQL;
       die("There was an error running the query [" . $db->error . "]");
   }
   $row = $result->fetch_assoc();
-<<<<<<< HEAD
-  echo '<br><h4>Average Ratings in Categories:</h4>';
-  echo 'Food Rating: ' . $row['Food'] . '<br>Staff Rating: ' . $row['Staff'] . '<br>Price Rating: ' . $row['Price'];
-  echo '<br>Clean Rating: ' . $row['Clean'] . '<br>Speed Rating: ' . $row['Speed'] . '<br>Total Rating: ' . $row['Total'];
-
-
-
-if (isset($_SESSION['valid'])) {
-  echo "<br><br><a href='./rate.php?id={$diningID}'>Create Rating</a><br><br>";
-}
-echo '<h4>Hours: </h4>';
-$sql = <<<SQL
-    SELECT *
-    FROM Hours
-    WHERE DiningID = "{$diningID}";
-SQL;
-  if(!$result = $db->query($sql)) {
-      die("There was an error running the query [" . $db->error . "]");
-  }
-  $i = 1;
-if($result->num_rows > 0) {
-  echo "<table class='spacedtable'><tr><th>Day</th><th>Time of Day</th><th>Start Time</th><th>End Time</th></tr>";
-}
-while($row = $result->fetch_assoc()) {
-  $timeday = "Morning";
-  if ($row['TimeOfDay'] == 0) {
-    $timeday = "Morning";
-  } else if ($row['TimeOfDay'] == 1) {
-    $timeday = "Afternoon";
-  } else if ($row['TimeOfDay'] == 2) {
-    $timeday = "Night";
-  }
-  echo "<tr><td>" . $row['Day'] . "</td><td>" . $timeday . "</td><td>" . $row['Stime'] . "</td><td> " . $row['Etime'] . "</td></tr>";
-  $i++;
-}
-if($i == 1) {
-  echo "<br>No matching results!";
-} else {
-  echo "</table>";
-}
-=======
   echo '<br>';
   echo '<table class="spacedtable averages">';
   echo '<tr><th>Category</th><th>Rating</th></tr>';
@@ -170,9 +154,7 @@ if($i == 1) {
   echo '<tr><td>Total Rating:</td><td>' . $row['Total'] . '</td></tr>';
   echo '</table>';
   echo '</td></tr></table>';
->>>>>>> cd138b9805aa97a0e6c487fcdc5cba4d97dfe81d
 
-echo '<h4>Food: </h4>';
 $sql = <<<SQL
     SELECT *
     FROM Ratings
