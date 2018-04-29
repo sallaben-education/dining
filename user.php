@@ -33,6 +33,12 @@ if(!isset($_SESSION['valid'])) {
     </div>
 </header>
 <div class="content">
+<?php
+if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
+    $msg = strip_tags(urldecode($_GET['msg']));
+    echo "<div class='message'>{$msg}</div>";
+}
+?>
     <h1>Hello <?php echo $_SESSION['Name']; ?>!</h1>
     <div>
         <div>Email: <?php echo $_SESSION['Email']; ?></div>
