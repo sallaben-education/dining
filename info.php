@@ -24,7 +24,7 @@ $diningID = strip_tags(urldecode($_GET['id']));
     <div class="right">
         <?php
         if(isset($_SESSION['valid'])) {
-            echo $_SESSION['Name'] . ' &mdash; <span class="logout"><a href="./script/logout.php">Log Out</a></span>';
+            echo '<a href="./user.php">' . $_SESSION['Name'] . '</a> &mdash; <span class="logout"><a href="./script/logout.php">Log Out</a></span>';
         } else {
             echo '<span class="signup"><a href="./signup.php">Sign Up</a></span>';
             echo '<span class="login"><a href="./login.php">Log In</a></span>';
@@ -90,6 +90,19 @@ SQL;
   $row = $result->fetch_assoc();
   echo "<h1>" . $row['Name'] . "</h1>School: " . $row['SchoolName'] . "<br>Price: " . $row['Price'];
 
+$sql = <<<SQL
+    SELECT AVG(FoodRating) as Food, AVG(StaffRating) as Staff, AVG(PriceRating) as Price, AVG(CleanRating) as Clean, AVG(SpeedRating) as Speed, AVG(TotalRating) as Total FROM Ratings GROUP BY DiningID HAVING DiningID='{$diningID}';
+SQL;
+  if(!$result = $db->query($sql)) {
+      die("There was an error running the query [" . $db->error . "]");
+  }
+  $row = $result->fetch_assoc();
+  echo '<br><h4>Average Ratings in Categories:</h4>';
+  echo 'Food Rating: ' . $row['Food'] . '<br>Staff Rating: ' . $row['Staff'] . '<br>Price Rating: ' . $row['Price'];
+  echo '<br>Clean Rating: ' . $row['Clean'] . '<br>Speed Rating: ' . $row['Speed'] . '<br>Total Rating: ' . $row['Total'];
+
+
+
 if (isset($_SESSION['valid'])) {
   echo "<br><br><a href='./rate.php?id={$diningID}'>Create Rating</a><br><br>";
 }
@@ -115,6 +128,33 @@ if($i == 1) {
 } else {
   echo "</table>";
 }
+echo "<h4>20 Most Recent Ratings:</h4>";
+$sql = <<<SQL
+    SELECT *
+    FROM Ratings
+    WHERE DiningID = "{$diningID}" ORDER BY Time LIMIT 20;
+SQL;
+  if(!$result = $db->query($sql)) {
+      die("There was an error running the query [" . $db->error . "]");
+  }
+  $i = 1;
+if($result->num_rows > 0) {
+  echo "<table class='spacedtable'><tr><th>#</th><th>Total Rating</th><th>Comment</th><th>User</th></tr>";
+}
+while($row = $result->fetch_assoc()) {
+  if ($row['Anonymous']) {
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td>" . $row['Comment'] . "</td><td>Anonymous</td></tr>";
+  } else {
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td>" . $row['Comment'] . "</td><td>" . $row['UserID'] . "</td></tr>";
+  }
+  $i++;
+}
+if($i == 1) {
+  echo "<br>No Ratings Yet!";
+} else {
+  echo "</table>";
+}
+
 }
 ?>
 </div>
