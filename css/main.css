@@ -53,6 +53,17 @@ header .right {
     border-top: 1px solid black;
     text-align: center;
 }
+.ratingtable {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+.lcontainer {
+    width: 100%;
+}
+.leaderboard {
+    margin: 10px;
+}
 .message, .error {
     color: white;
     font-size: 16px;

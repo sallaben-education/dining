@@ -5,7 +5,7 @@ require_once("./connect.php");
 session_start();
 
 if(sizeof($_POST) != 6) {
-    die("Not a valid form submission, Please fill in all areas of the form!");
+    die("Not a valid form submission, please fill in all areas of the form!");
 }
 
 $name = strtoupper($_POST['name']);
@@ -19,7 +19,6 @@ if($pwd != $repeat) {
 }
 
 $encrypted = md5($pwd);
-$time = time();
 
 $sql = <<<SQL
     INSERT INTO Users (Email, SignupDate, Password, Name) 

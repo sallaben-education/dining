@@ -104,7 +104,7 @@ $row = $result->fetch_assoc();
   echo "Number of ratings: <strong>" . $row['NumRatings'] . "</strong>";
 
   if (isset($_SESSION['valid'])) {
-    echo "<h3><a href='./rate.php?id={$diningID}'>Create Rating</a></h3>";
+    echo "<h3><a href='./rate.php?id={$diningID}'>Leave Rating</a></h3>";
   }
   echo "<h4>Recent Ratings:</h4>";
 echo '</td><td>';
