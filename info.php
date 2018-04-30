@@ -157,8 +157,8 @@ SQL;
 
 $sql = <<<SQL
     SELECT *
-    FROM Ratings
-    WHERE DiningID = "{$diningID}" ORDER BY Time LIMIT 20;
+    FROM Ratings, Users
+    WHERE DiningID = "{$diningID}" AND Ratings.UserID=Users.UserID ORDER BY Time LIMIT 20;
 SQL;
   if(!$result = $db->query($sql)) {
       die("There was an error running the query [" . $db->error . "]");
@@ -171,7 +171,7 @@ while($row = $result->fetch_assoc()) {
   if ($row['Anonymous']) {
     echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>Anonymous</td></tr>";
   } else {
-    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>" . $row['UserID'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>" . $row['Name'] . "</td></tr>";
   }
   $i++;
 }
