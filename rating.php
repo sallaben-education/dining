@@ -46,7 +46,11 @@ SQL;
     }
     if($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $userName = $row['Name'];
+        if ($anon) {
+            $userName = 'Anonymous'; 
+        } else {
+            $userName = $row['Name'];
+        }
     }
 } else {
     header("Location: ./index.php");
@@ -87,12 +91,19 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
     echo "<div class='message'>{$msg}</div>";
 }
 ?>
-    <h1>Rating for <?php 
-    if ($anon) {
-        echo $diningName . ' by Anonymous.'; 
-    } else {
-        echo $diningName . ' by ' . $userName . '.';
-    } ?></h1>
+    <h1>Rating for <?php
+    echo "<a href='./info.php?id={$diningId}'>{$diningName}</a> (by {$userName})</h1>";
+    echo $comment . "<br><br>";
+    echo "<table class='spacedtable'>";
+    echo "<tr><th>Category</th><th>My Rating</th></tr>";
+    echo "<tr><td>Food Quality: </td><td>{$foodRating} / 5</td></tr>";
+    echo "<tr><td>Staff/Service Quality: </td><td>{$staffRating} / 5</td></tr>";
+    echo "<tr><td>Price/Value: </td><td>{$priceRating} / 5</td></tr>";
+    echo "<tr><td>Cleanliness: </td><td>{$cleanRating} / 5</td></tr>";
+    echo "<tr><td>Speed: </td><td>{$speedRating} / 5</td></tr>";
+    echo "<tr><td>Overall: </td><td>{$totalRating} / 5</td></tr>";
+    echo "</table>";
+    ?>
     </div>
 </div>
 </body>

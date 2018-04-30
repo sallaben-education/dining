@@ -54,6 +54,7 @@ $sql = <<<SQL
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
     GROUP BY D.DiningID
+    ORDER BY Avg DESC
     LIMIT 5;
 SQL;
 
@@ -77,6 +78,7 @@ $sql = <<<SQL
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
     GROUP BY D.DiningID
+    ORDER BY Avg DESC
     LIMIT 5;
 SQL;
 
@@ -101,6 +103,7 @@ $sql = <<<SQL
     FROM DiningHall AS D, Ratings AS R
     WHERE D.DiningID = R.DiningID
     GROUP BY D.DiningID
+    ORDER BY Avg DESC
     LIMIT 5;
 SQL;
 
