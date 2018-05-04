@@ -35,24 +35,6 @@ $_SESSION['Name'] = $row['Name'];
 
 $sql = <<<SQL
     SELECT *
-    FROM Users
-    WHERE UserID IN (SELECT UserID FROM Administrator)
-SQL;
-
-if(!$result = $db->query($sql)) {
-    die("There was an error running the query [" . $db->error . "]");
-}
-
-if($result->num_rows <= 0) {
-    $_SESSION['admin'] = false;
-} else {
-    $_SESSION['admin'] = true;
-}
-
-$_SESSION['valid'] = true;
-
-$sql = <<<SQL
-    SELECT *
     FROM Administrator
     WHERE UserID = '{$_SESSION['UserID']}'
 SQL;
@@ -63,8 +45,13 @@ if(!$result = $db->query($sql)) {
 
 if($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $_SESSION['admin'] = true;
     $_SESSION['pin'] = $row['PIN'];
+} else {
+    $_SESSION['admin'] = false;
 }
+
+$_SESSION['valid'] = true;
 
 header("Location: ../index.php?msg=" . urlencode("Successfully logged in!"));
 

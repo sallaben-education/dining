@@ -44,7 +44,12 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
         <div>Email: <?php echo $_SESSION['Email']; ?></div>
         <div>Account Created On: <?php echo $_SESSION['SignupDate']; ?></div>
         <div>Account Type: 
-            <?php echo $_SESSION['usertype'];
+            <?php 
+            if($_SESSION['usertype'] == "") {
+                echo "student";
+            } else {
+                echo $_SESSION['usertype'];
+            }
             if (!strcmp($_SESSION['usertype'], 'student')) {
                 echo '<div>Swipes: ' . $_SESSION['swipes'] . '</div>';
                 echo '<div>Declining: ' . $_SESSION['declining'] . '</div>';

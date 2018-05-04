@@ -45,7 +45,6 @@ $_SESSION['SignupDate'] = $row['SignupDate'];
 $_SESSION['Email'] = $email;
 $_SESSION['Name'] = $name;
 $_SESSION['usertype'] = $userType;
-$_SESSION['valid'] = true;
 
 $myUserId = $row['UserID'];
 
@@ -74,22 +73,6 @@ SQL;
 
 $sql = <<<SQL
     SELECT *
-    FROM Users
-    WHERE UserID IN (SELECT UserID FROM Administrator)
-SQL;
-
-if(!$result = $db->query($sql)) {
-    die("There was an error running the query [" . $db->error . "]");
-}
-
-if($result->num_rows <= 0) {
-    $_SESSION['admin'] = false;
-} else {
-    $_SESSION['admin'] = true;
-}
-
-$sql = <<<SQL
-    SELECT *
     FROM Administrator
     WHERE UserID = '{$_SESSION['UserID']}'
 SQL;
@@ -100,8 +83,13 @@ if(!$result = $db->query($sql)) {
 
 if($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $_SESSION['admin'] = true;
     $_SESSION['pin'] = $row['PIN'];
+} else {
+    $_SESSION['admin'] = false;
 }
+
+$_SESSION['valid'] = true;
 
 header("Location: ../index.php?msg=" . urlencode("Account successfully created for {$name}!"));
 

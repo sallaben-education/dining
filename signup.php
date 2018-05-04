@@ -53,7 +53,7 @@ if(isset($_SESSION['valid'])) {
         <!--<br><br>-->
         <div>
         	<label for="student">Student?</label>
-        	<input type="radio" name="usertype" id="student" value="student">
+        	<input type="radio" name="usertype" id="student" value="student" checked>
         	<br>
         	<label for="faculty">Faculty?</label>
         	<input type="radio" name="usertype" id="faculty" value="faculty">
