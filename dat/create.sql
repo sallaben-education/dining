@@ -8,7 +8,6 @@ drop table if exists Food;
 drop table if exists Users;
 drop table if exists DiningHall;
 
-
 create table Users (
  UserID INT AUTO_INCREMENT,
  Email VARCHAR(200) NOT NULL UNIQUE,

@@ -92,8 +92,11 @@ if(sizeof($_GET) == 1 && $_GET['msg'] != NULL) {
 }
 ?>
     <h1>Rating for <?php
-    echo "<a href='./info.php?id={$diningId}'>{$diningName}</a> (by {$userName})</h1>";
-    echo $comment . "<br><br>";
+    echo "<a href='./info.php?id={$diningId}'>{$diningName}</a> (by {$userName}) ";
+    if($_SESSION['admin']) {
+        echo "<a href='./script/delete.php?id={$ratingId}' style='color: red'>Delete Rating</a>";
+    }
+    echo "</h1>" . $comment . "<br><br>";
     echo "<table class='spacedtable'>";
     echo "<tr><th>Category</th><th>My Rating</th></tr>";
     echo "<tr><td>Food Quality: </td><td>{$foodRating} / 5</td></tr>";

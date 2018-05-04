@@ -72,6 +72,22 @@ SQL;
 
 }
 
+$sql = <<<SQL
+    SELECT *
+    FROM Users
+    WHERE UserID IN (SELECT UserID FROM Administrator)
+SQL;
+
+if(!$result = $db->query($sql)) {
+    die("There was an error running the query [" . $db->error . "]");
+}
+
+if($result->num_rows <= 0) {
+    $_SESSION['admin'] = false;
+} else {
+    $_SESSION['admin'] = true;
+}
+
 header("Location: ../index.php?msg=" . urlencode("Account successfully created for {$name}!"));
 
 ?>

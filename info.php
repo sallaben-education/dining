@@ -168,10 +168,21 @@ if($result->num_rows > 0) {
   echo "<table class='spacedtable'><tr><th>#</th><th>Total Rating</th><th>Comment</th><th>User</th></tr>";
 }
 while($row = $result->fetch_assoc()) {
+  if($row['Comment'] == "") {
+    $row['Comment'] = "N/A";
+  }
   if ($row['Anonymous']) {
-    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>Anonymous</td></tr>";
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . substr($row['Comment'], 0, 30);
+    if(strlen($row['Comment']) > 30) {
+      echo "...";
+    }
+    echo "</a></td><td>Anonymous</td></tr>";
   } else {
-    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . $row['Comment'] . "</a></td><td>" . $row['Name'] . "</td></tr>";
+    echo "<tr><td>{$i}</td><td>" . $row['TotalRating'] . "</td><td><a href='rating.php?id=" . $row['RatingID'] . "'>" . substr($row['Comment'], 0, 30);
+    if(strlen($row['Comment']) > 30) {
+      echo "...";
+    }
+    echo "</a></td><td>" . $row['Name'] . "</td></tr>";
   }
   $i++;
 }
